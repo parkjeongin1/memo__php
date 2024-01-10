@@ -11,14 +11,12 @@ try {
     $pdo = new PDO($memojang, $user, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // 수정 페이지로부터 메모 ID를 받아옵니다
     $memoId = isset($_GET['memo_id']) ? $_GET['memo_id'] : null;
 
     if (!$memoId) {
         die("유효하지 않은 메모 ID");
     }
 
-    // 메모 정보 가져오기
     $stmt = $pdo->prepare("SELECT * FROM memos WHERE id = :id");
     $stmt->bindParam(':id', $memoId, PDO::PARAM_INT);
     $stmt->execute();
@@ -29,11 +27,10 @@ try {
     }
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        // 메모 수정 처리
+        // 메모 update sql문
         $title = isset($_POST['title']) ? $_POST['title'] : $memo['title'];
         $content = isset($_POST['content']) ? $_POST['content'] : $memo['content'];
 
-        // 메모 내용 수정
         $stmt = $pdo->prepare("UPDATE memos SET title = :title, content = :content WHERE id = :id");
         $stmt->bindParam(':title', $title, PDO::PARAM_STR);
         $stmt->bindParam(':content', $content, PDO::PARAM_STR);
@@ -45,16 +42,13 @@ try {
             exit();
         } else {
             echo "데이터 수정 중 오류가 발생했습니다";
-            // 쿼리 오류 메시지 출력
             var_dump($stmt->errorInfo());
         }
     }
 
 } catch (PDOException $e) {
-    // 추가한 로그: 오류 메시지 확인
     die("오류: " . $e->getMessage());
 }
-// 사용자 아이디 가져오기
 $userId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';// 환영 메시지 생성
 $welcomeMessage = $userId ? "[$userId]님 환영합니다." : '';
 ?>

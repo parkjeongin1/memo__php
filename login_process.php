@@ -37,7 +37,7 @@ if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
     $hashedPassword = $row['user_password'];
 
-    // 입력된 비밀번호를 저장된 해시된 비밀번호와 비교
+    // 비밀번호 비교
     if (password_verify($userPassword, $hashedPassword)) {
         // 사용자 ID를 세션 변수에 저장
         session_start();

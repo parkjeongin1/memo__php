@@ -23,26 +23,22 @@ try {
             $title = $_POST['title'];
             $content = $_POST['content'];
 
-            // memos 테이블에 데이터 삽입
+            // memos insert문
             $stmt = $pdo->prepare("INSERT INTO memos (user_id, title, content, created_at) VALUES (?, ?, ?, NOW())");
             $result = $stmt->execute([$user_id, $title, $content]);
 
             if ($result) {
-                // 삽입 성공 시 memo_board.php로 리디렉션
                 header("Location: memo_board.php");
                 exit();
             } else {
                 echo "데이터 삽입 중 오류가 발생했습니다";
-                // 쿼리 오류 메시지 출력
                 var_dump($stmt->errorInfo());
             }
         }
     }
-    // 사용자 아이디 가져오기
     $userId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';// 환영 메시지 생성
     $welcomeMessage = $userId ? "[$userId]님 환영합니다." : '';
 } catch (PDOException $e) {
-    // 추가한 로그: 오류 메시지 확인
     die("오류: " . $e->getMessage());
 }
 ?>

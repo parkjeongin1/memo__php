@@ -36,7 +36,6 @@ try {
         die("메모를 찾을 수 없습니다");
     }
 
-    // 사용자 아이디 가져오기
     $userId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';// 환영 메시지 생성
     $welcomeMessage = $userId ? "[$userId]님 환영합니다." : '';
 

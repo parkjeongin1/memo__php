@@ -10,7 +10,7 @@ try {
     $pdo = new PDO($memojang, $user, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // URL에서 메모 title을 기반으로 메모 세부 정보를 가져옵니다.
+
     $memoTitle = isset($_GET['title']) ? $_GET['title'] : null;
 
     if (!$memoTitle) {
@@ -21,7 +21,6 @@ try {
     $stmtDelete->bindParam(':title', $memoTitle, PDO::PARAM_STR);
     $stmtDelete->execute();
 
-    // 삭제 후 메모 보드 페이지로 이동
     header("Location: /memojang/memo_board.php");
     exit();
 } catch (PDOException $e) {

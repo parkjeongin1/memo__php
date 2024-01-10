@@ -172,14 +172,13 @@
     }
 </script>
 <script>
-    // 클라이언트 측에서 비밀번호 일치 여부 확인 및 메시지 표시
+    //비밀번호 일치 여부 확인 및 메시지 표시
     function validatePassword() {
         var password = document.getElementById("userpw").value;
         var confirmPassword = document.getElementById("userpw2").value;
         var message = document.getElementById("passwordMatchMessage");
 
-        // 만약 두 비밀번호 필드가 모두 입력되었고, 일치하면 메시지를 표시
-        if (password !== "" && confirmPassword !== "" && password === confirmPassword) {
+         if (password !== "" && confirmPassword !== "" && password === confirmPassword) {
             message.innerHTML = '비밀번호가 일치합니다.';
             message.style.color = 'blue';
             return true;
@@ -190,7 +189,6 @@
         }
     }
 
-    // 비밀번호 입력 필드에 입력이 발생할 때마다 validatePassword 함수 호출
     document.getElementById("userpw").addEventListener("input", validatePassword);
     document.getElementById("userpw2").addEventListener("input", validatePassword);
 </script>

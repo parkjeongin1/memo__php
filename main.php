@@ -78,7 +78,7 @@ try {
 
 <script>
     document.getElementById('loginButton').addEventListener('click', function() {
-        // 로그인 버튼 클릭 시 login.php로 이동
+
         window.location.href = 'login.php';
     });
 </script>

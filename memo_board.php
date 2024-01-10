@@ -13,16 +13,13 @@ try {
     $pdo = new PDO($memojang, $user, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // 페이지당 레코드 수
     $recordsPerPage = 10;
 
-    // 현재 페이지
     $currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 
-    // SQL 쿼리의 오프셋 계산
     $offset = ($currentPage - 1) * $recordsPerPage;
 
-    // 검색어 처리
+    // 검색어
     $searchKeyword = isset($_GET['search']) ? $_GET['search'] : '';
     $searchCondition = !empty($searchKeyword) ? "WHERE title LIKE :search" : "";
 
@@ -36,7 +33,6 @@ try {
     $stmt->execute();
     $memos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // 전체 메모 수 및 페이지 수 계산
     $totalMemosStmt = $pdo->prepare("SELECT COUNT(*) FROM memos $searchCondition");
     if (!empty($searchKeyword)) {
         $totalMemosStmt->bindValue(':search', "%$searchKeyword%", PDO::PARAM_STR);
@@ -49,10 +45,8 @@ try {
     die("오류: " . $e->getMessage());
 }
 
-// 사용자 아이디 가져오기
 $userId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
-// 환영 메시지 생성
 $welcomeMessage = $userId ? "[$userId]님 환영합니다." : '';
 
 ?>
@@ -139,7 +133,6 @@ $welcomeMessage = $userId ? "[$userId]님 환영합니다." : '';
             color: white;
         }
 
-        /* 추가된 스타일 */
         .text-welcome {
             color: black;
             font-weight: bold;
